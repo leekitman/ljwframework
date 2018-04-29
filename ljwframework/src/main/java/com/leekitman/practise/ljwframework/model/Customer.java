@@ -6,7 +6,7 @@ public class Customer {
     private String name;
     private String contact;
     private String telephone;
-    private String eamil;
+    private String email;
     private String remark;
 
     public Long getId() {
@@ -41,12 +41,12 @@ public class Customer {
         this.telephone = telephone;
     }
 
-    public String getEamil() {
-        return eamil;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEamil(String eamil) {
-        this.eamil = eamil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRemark() {
