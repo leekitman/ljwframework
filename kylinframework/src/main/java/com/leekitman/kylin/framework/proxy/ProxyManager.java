@@ -19,6 +19,7 @@ public class ProxyManager {
     public static <T> T createProxy(final Class<?> targetClass, final List<Proxy> proxyList){
         return (T) Enhancer.create(targetClass, new MethodInterceptor() {
             public Object intercept(Object targetObject, Method targetMethod, Object[] methodParams, MethodProxy methodProxy) throws Throwable {
+                // 此处应有before(); methodProxy.invokeSuper(targetObject,methodParams); after();
                 return new ProxyChain(targetClass, targetObject,targetMethod,methodProxy, methodParams, proxyList).doProxyChain();
             }
         });

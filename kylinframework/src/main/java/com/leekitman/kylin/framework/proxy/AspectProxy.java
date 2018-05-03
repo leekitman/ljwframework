@@ -41,22 +41,26 @@ public abstract class AspectProxy implements Proxy {
         return null;
     }
 
-    public void end() {
+    public void begin() {
     }
 
-    public void error(Class<?> cls, Method method, Object[] params, Exception e) throws Throwable {
-    }
-
-    public void after(Class<?> cls, Method method, Object[] params, Object result) throws Throwable {
+    /**
+     * @return true则执行before()和after()，false则不执行。默认true
+     */
+    public boolean intercept(Class<?> cls, Method method, Object[] params) throws Throwable {
+        return true;
     }
 
     public void before(Class<?> cls, Method method, Object[] params) throws Throwable {
     }
 
-    public boolean intercept(Class<?> cls, Method method, Object[] params) throws Throwable {
-        return true;
+    public void after(Class<?> cls, Method method, Object[] params, Object result) throws Throwable {
     }
 
-    public void begin() {
+    public void error(Class<?> cls, Method method, Object[] params, Exception e) throws Throwable {
     }
+
+    public void end() {
+    }
+
 }

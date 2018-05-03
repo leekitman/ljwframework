@@ -64,7 +64,9 @@ public final class AopHelper {
      */
     private static Map<Class<?>, Set<Class<?>>> createProxyMap() throws Exception {
         Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<Class<?>, Set<Class<?>>>();
+        // 增加@Aspect注解式代理
         addAspectProxy(proxyMap);
+        // 增加事务代理
         addTransactionProxy(proxyMap);
         return proxyMap;
     }
@@ -95,6 +97,9 @@ public final class AopHelper {
         return targetMap;
     }
 
+    /**
+     * 增加@Aspect注解的代理
+     */
     private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap) throws Exception {
         Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
         for (Class<?> proxyClass :
@@ -107,6 +112,9 @@ public final class AopHelper {
         }
     }
 
+    /**
+     * 增加事务代理
+     */
     private static void addTransactionProxy(Map<Class<?>, Set<Class<?>>> proxyMap){
         Set<Class<?>> serviceClassSet = ClassHelper.getClassSetByAnnotation(Service.class);
         proxyMap.put(TransactionProxy.class,serviceClassSet);

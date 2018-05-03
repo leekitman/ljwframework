@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class ProxyChain {
 
-    private final Class<?> targetClass;
+    private final Class<?> targetClass;     // 目标类
     private final Object targetObject;
     private final Method targetMethod;
     private final MethodProxy methodProxy;
     private final Object[] methodParams;
 
-    private List<Proxy> proxyList = new ArrayList<Proxy>();
+    private List<Proxy> proxyList = new ArrayList<Proxy>();     // 切面列表
     private int proxyIndex = 0;
 
     public ProxyChain(Class<?> targetClass, Object targetObject, Method targetMethod, MethodProxy methodProxy,
