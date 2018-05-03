@@ -1,7 +1,7 @@
 package com.leekitman.practise.ljwframework.service;
 
 import com.leekitman.kylin.framework.annotation.Transaction;
-import com.leekitman.practise.ljwframework.helper.DatabaseHelper;
+import com.leekitman.kylin.framework.helper.DatabaseHelper;
 import com.leekitman.practise.ljwframework.model.Customer;
 
 import java.util.List;
