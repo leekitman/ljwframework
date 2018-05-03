@@ -1,9 +1,6 @@
 package com.leekitman.kylin.framework;
 
-import com.leekitman.kylin.framework.helper.BeanHelper;
-import com.leekitman.kylin.framework.helper.ClassHelper;
-import com.leekitman.kylin.framework.helper.ControllerHelper;
-import com.leekitman.kylin.framework.helper.IocHelper;
+import com.leekitman.kylin.framework.helper.*;
 import com.leekitman.kylin.framework.util.ClassUtil;
 
 /**
@@ -18,6 +15,7 @@ public final class HelperLoader {
         Class<?>[] classList = {
                 ClassHelper.class,
                 BeanHelper.class,
+                AopHelper.class,
                 IocHelper.class,
                 ControllerHelper.class
         };
