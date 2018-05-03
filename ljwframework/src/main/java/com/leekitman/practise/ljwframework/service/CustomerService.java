@@ -1,5 +1,6 @@
 package com.leekitman.practise.ljwframework.service;
 
+import com.leekitman.kylin.framework.annotation.Transaction;
 import com.leekitman.practise.ljwframework.helper.DatabaseHelper;
 import com.leekitman.practise.ljwframework.model.Customer;
 
@@ -35,6 +36,7 @@ public class CustomerService {
      * @param fieldMap 字段map
      * @return 创建成功则返回true，否则返回false
      */
+    @Transaction
     public Boolean createCustomer(Map<String,Object> fieldMap){
         return DatabaseHelper.insertEntity(Customer.class,fieldMap);
     }
@@ -45,6 +47,7 @@ public class CustomerService {
      * @param fieldMap 更新的字段map
      * @return 更新成功则返回true，否则返回false
      */
+    @Transaction
     public Boolean updateCustomer(Long id, Map<String,Object> fieldMap){
         return DatabaseHelper.updateEntity(Customer.class,id,fieldMap);
     }
@@ -54,6 +57,7 @@ public class CustomerService {
      * @param id 删除目标的id
      * @return 删除成功则返回true，否则返回false
      */
+    @Transaction
     public Boolean deleteCustomer(Long id){
         return DatabaseHelper.deleteEntity(Customer.class,id);
     }
