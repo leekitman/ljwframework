@@ -1,6 +1,7 @@
 package com.leekitman.kylin.framework.bean;
 
 import com.leekitman.kylin.framework.util.CastUtil;
+import com.leekitman.kylin.framework.util.CollectionUtil;
 
 import java.util.Map;
 
@@ -35,5 +36,12 @@ public class Param {
      */
     public Map<String, Object> getMap() {
         return paramMap;
+    }
+
+    /**
+     * 判断是否为空
+     */
+    public boolean isEmpty() {
+        return CollectionUtil.isEmpty(paramMap);
     }
 }
