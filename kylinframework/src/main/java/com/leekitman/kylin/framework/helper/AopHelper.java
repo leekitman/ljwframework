@@ -46,7 +46,7 @@ public final class AopHelper {
      * @return 返回标注了‘另一个注解’的所有类。
      */
     private static Set<Class<?>> createTargetClassSet(Aspect aspect) throws Exception {
-        Set<Class<?>> targetClassSet = new HashSet<Class<?>>();
+        Set<Class<?>> targetClassSet = new HashSet<>();
         if (aspect != null) {
             Class<? extends Annotation> annotation = aspect.value();
             if (!annotation.equals(Aspect.class)) {
@@ -63,7 +63,7 @@ public final class AopHelper {
      * @return 返回切面与连接点的映射Map
      */
     private static Map<Class<?>, Set<Class<?>>> createProxyMap() throws Exception {
-        Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<Class<?>, Set<Class<?>>>();
+        Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<>();
         // 增加@Aspect注解式代理
         addAspectProxy(proxyMap);
         // 增加事务代理
@@ -77,7 +77,7 @@ public final class AopHelper {
      * @param proxyMap 所有切面和连接点的映射Map
      */
     private static Map<Class<?>, List<Proxy>> createTargetMap(Map<Class<?>, Set<Class<?>>> proxyMap) throws Exception {
-        Map<Class<?>, List<Proxy>> targetMap = new HashMap<Class<?>, List<Proxy>>();
+        Map<Class<?>, List<Proxy>> targetMap = new HashMap<>();
         for (Map.Entry<Class<?>, Set<Class<?>>> proxyEntry :
                 proxyMap.entrySet()) {
             Class<?> proxyClass = proxyEntry.getKey();
@@ -88,7 +88,7 @@ public final class AopHelper {
                 if (targetMap.containsKey(targetClass)) {
                     targetMap.get(targetClass).add(proxy);
                 } else {
-                    List<Proxy> proxyList = new ArrayList<Proxy>();
+                    List<Proxy> proxyList = new ArrayList<>();
                     proxyList.add(proxy);
                     targetMap.put(targetClass, proxyList);
                 }

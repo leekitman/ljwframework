@@ -22,7 +22,7 @@ public final class ControllerHelper {
     /**
      * 用于存放请求与处理器的映射关系（简称 Action Map）
      */
-    private static final Map<Request,Handler> ACTION_MAP = new HashMap<Request, Handler>();
+    private static final Map<Request,Handler> ACTION_MAP = new HashMap<>();
 
     static {
         // 获取所有的 Controller 类
@@ -64,9 +64,6 @@ public final class ControllerHelper {
 
     /**
      * 获取 Handler
-     * @param requestMethod
-     * @param requestPath
-     * @return
      */
     public static Handler getHandler (String requestMethod, String requestPath){
         Request request = new Request(requestMethod,requestPath);

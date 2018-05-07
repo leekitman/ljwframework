@@ -16,7 +16,7 @@ public final class BeanHelper {
     /**
      * 定义 Bean 映射（用于存放Bean类与Bean实例的映射关系）
      */
-    private static final Map<Class<?>, Object> BEAN_MAP = new HashMap<Class<?>, Object>();
+    private static final Map<Class<?>, Object> BEAN_MAP = new HashMap<>();
 
     static {
         Set<Class<?>> beanClassSet = ClassHelper.getBeanClassSet();
@@ -29,8 +29,6 @@ public final class BeanHelper {
 
     /**
      * 获取 Bean 映射
-     *
-     * @return
      */
     public static Map<Class<?>, Object> getBeanMap() {
         return BEAN_MAP;
@@ -38,10 +36,6 @@ public final class BeanHelper {
 
     /**
      * 获取 Bean 实例
-     *
-     * @param cls
-     * @param <T>
-     * @return
      */
     @SuppressWarnings("unchecked")
     public static <T> T getBean(Class<T> cls) {

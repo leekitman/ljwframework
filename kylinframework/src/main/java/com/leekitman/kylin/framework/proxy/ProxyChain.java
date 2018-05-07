@@ -20,7 +20,7 @@ public class ProxyChain {
     private final MethodProxy methodProxy;
     private final Object[] methodParams;
 
-    private List<Proxy> proxyList = new ArrayList<Proxy>();     // 切面列表
+    private List<Proxy> proxyList = new ArrayList<>();     // 切面列表
     private int proxyIndex = 0;
 
     public ProxyChain(Class<?> targetClass, Object targetObject, Method targetMethod, MethodProxy methodProxy,
