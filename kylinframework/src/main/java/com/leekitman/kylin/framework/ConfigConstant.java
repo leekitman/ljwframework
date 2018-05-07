@@ -18,4 +18,5 @@ public interface ConfigConstant {
     String APP_BASE_PACKAGE = "kylin.framework.app.base_package";
     String APP_JSP_PATH = "kylin.framework.app.jsp_path";
     String APP_ASSET_PATH = "kylin.framework.app.asset_path";
+    String APP_UPLOAD_LIMIT = "kylin.framework.app.upload_limit";
 }

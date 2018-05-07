@@ -36,4 +36,25 @@ public final class StreamUtil {
         return sb.toString();
     }
 
+    public static void copyStream(InputStream inputStream, OutputStream outputStream) {
+        try {
+            int length;
+            byte[] buffer = new byte[4 * 1024];
+            while ((length = inputStream.read(buffer, 0, buffer.length)) != -1) {
+                outputStream.write(buffer, 0, length);
+            }
+            outputStream.flush();
+        } catch (IOException e) {
+            LOG.error("copy stream failure", e);
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                inputStream.close();
+                outputStream.close();
+            } catch (IOException e) {
+                LOG.error("close stream failure", e);
+            }
+        }
+    }
+
 }
