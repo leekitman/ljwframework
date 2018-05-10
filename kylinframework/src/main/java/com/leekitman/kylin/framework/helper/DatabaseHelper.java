@@ -11,6 +11,7 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,6 +74,13 @@ public class DatabaseHelper {
             }
         }
         return conn;
+    }
+
+    /**
+     * 获取数据源
+     */
+    public static DataSource getDataSource() {
+        return DATA_SOURCE;
     }
 
     /**
