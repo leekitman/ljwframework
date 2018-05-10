@@ -4,10 +4,7 @@ import com.leekitman.kylin.framework.bean.Data;
 import com.leekitman.kylin.framework.bean.Handler;
 import com.leekitman.kylin.framework.bean.Param;
 import com.leekitman.kylin.framework.bean.View;
-import com.leekitman.kylin.framework.helper.BeanHelper;
-import com.leekitman.kylin.framework.helper.ControllerHelper;
-import com.leekitman.kylin.framework.helper.RequestHelper;
-import com.leekitman.kylin.framework.helper.UploadHelper;
+import com.leekitman.kylin.framework.helper.*;
 import com.leekitman.kylin.framework.util.JsonUtil;
 import com.leekitman.kylin.framework.util.ReflectionUtil;
 import com.leekitman.kylin.framework.util.StringUtil;
@@ -35,7 +32,7 @@ import java.util.Map;
 public class DispatcherServlet extends HttpServlet {
 
     @Override
-    public void init(ServletConfig servletConfig) throws ServletException {
+    public void init(ServletConfig servletConfig) {
         // 初始化相关 Helper 类
         HelperLoader.init();
         // 获取 ServletContext 对象（用于注册 Servlet）
@@ -52,45 +49,49 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 获取请求方法与请求路径
-        String requestMethod = request.getMethod().toLowerCase();
-        String requestPath = request.getPathInfo();
-        if (requestPath.equals("/favicon.ico")) {
-            return;
-        }
-        // 获取 Action 处理器
-        Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);
-        if (handler != null) {
-            // 获取 Controller 类及其 Bean 实例
-            Class<?> controllerClass = handler.getControllerClass();
-            Object controllerBean = BeanHelper.getBean(controllerClass);
+        ServletHelper.init(request,response);
+        try {
+            // 获取请求方法与请求路径
+            String requestMethod = request.getMethod().toLowerCase();
+            String requestPath = request.getPathInfo();
+            if (requestPath.equals("/favicon.ico")) {
+                return;
+            }
+            // 获取 Action 处理器
+            Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);
+            if (handler != null) {
+                // 获取 Controller 类及其 Bean 实例
+                Class<?> controllerClass = handler.getControllerClass();
+                Object controllerBean = BeanHelper.getBean(controllerClass);
 
-            Param param;
-            if (UploadHelper.isMultipart(request)) {
-                param = UploadHelper.createParam(request);
-            } else {
-                param = RequestHelper.createParam(request);
+                Param param;
+                if (UploadHelper.isMultipart(request)) {
+                    param = UploadHelper.createParam(request);
+                } else {
+                    param = RequestHelper.createParam(request);
+                }
+                // 调用 Action 方法
+                Object result;
+                Method actionMethod = handler.getActionMethod();
+                if (param.isEmpty()) {
+                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
+                } else {
+                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+                }
+                // 处理 Action 方法返回值
+                if (result instanceof View) {
+                    handleViewResult((View) result, request, response);
+                } else if (result instanceof Data) {
+                    handleDataResult((Data) result, response);
+                }
             }
-            // 调用 Action 方法
-            Object result;
-            Method actionMethod = handler.getActionMethod();
-            if (param.isEmpty()) {
-                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
-            } else {
-                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
-            }
-            // 处理 Action 方法返回值
-            if (result instanceof View) {
-                handleViewResult((View) result, request, response);
-            } else if (result instanceof Data) {
-                handleDataResult((Data) result, response);
-            }
+        }finally {
+            ServletHelper.destroy();
         }
     }
 
-    private void handleDataResult(Data result, HttpServletResponse response) throws IOException {
+    private void handleDataResult(Data data, HttpServletResponse response) throws IOException {
         // 返回 JSON 数据
-        Data data = (Data) result;
         Object model = data.getModel();
         if (model != null) {
             response.setContentType("application/json");
@@ -103,9 +104,8 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
-    private void handleViewResult(View result, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void handleViewResult(View view, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // 返回 JSP 页面
-        View view = (View) result;
         String path = view.getPath();
         if (StringUtil.isNotEmpty(path)) {
             if (path.startsWith("/")) {
