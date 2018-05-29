@@ -6,9 +6,9 @@ package com.leekitman.kylin.framework;
  * @author  LeeKITMAN
  * @see 2018/4/30 11:20
  */
-public interface ConfigConstant {
+public interface KylinFrameworkConstant {
 
-    String CONFIG_FILE = "kylin.properties";
+    String CONFIG_PROPS = "kylin.properties";
 
     String JDBC_DRIVER = "kylin.framework.jdbc.driver";
     String JDBC_URL = "kylin.framework.jdbc.url";

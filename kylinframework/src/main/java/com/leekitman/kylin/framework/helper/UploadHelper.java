@@ -1,6 +1,6 @@
 package com.leekitman.kylin.framework.helper;
 
-import com.leekitman.kylin.framework.ConfigHelper;
+import com.leekitman.kylin.framework.core.ConfigHelper;
 import com.leekitman.kylin.framework.bean.FileParam;
 import com.leekitman.kylin.framework.bean.FormParam;
 import com.leekitman.kylin.framework.bean.Param;

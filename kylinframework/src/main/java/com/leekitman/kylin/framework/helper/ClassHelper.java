@@ -1,6 +1,6 @@
 package com.leekitman.kylin.framework.helper;
 
-import com.leekitman.kylin.framework.ConfigHelper;
+import com.leekitman.kylin.framework.core.ConfigHelper;
 import com.leekitman.kylin.framework.annotation.Controller;
 import com.leekitman.kylin.framework.annotation.Service;
 import com.leekitman.kylin.framework.util.ClassUtil;

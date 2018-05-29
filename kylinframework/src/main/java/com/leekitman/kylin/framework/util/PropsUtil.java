@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * 属性文件工具类
+ * 属性文件操作工具类
  */
 public final class PropsUtil {
 
@@ -17,16 +17,17 @@ public final class PropsUtil {
 
     /**
      * 加载属性文件
-     * @param fileName
-     * @return
      */
-    public static Properties loadProps(String fileName) {
-        Properties props = null;
+    public static Properties loadProps(String propsPath) {
+        Properties props = new Properties();
         InputStream is = null;
         try {
-            is=Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+            if (StringUtil.isEmpty(propsPath)) {
+                throw new IllegalArgumentException();
+            }
+            is=Thread.currentThread().getContextClassLoader().getResourceAsStream(propsPath);
             if(is == null){
-                throw new FileNotFoundException(fileName+"file is not found");
+                throw new FileNotFoundException(propsPath+"file is not found");
             }
             props = new Properties();
             props.load(is);
